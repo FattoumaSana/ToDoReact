@@ -7,7 +7,7 @@ import theme from '../theme/theme';
 
 const AddTask = () => {
     const [description, setDescription] = useState('');
-    const [error, setError] = useState(false); // Ajout d'un état pour l'erreur
+    const [error, setError] = useState(false);
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -15,9 +15,9 @@ const AddTask = () => {
         if (description.trim()) {
             dispatch(addTask(description));
             setDescription('');
-            setError(false); // Réinitialiser l'erreur
+            setError(false);
         } else {
-            setError(true); // Définir l'erreur si la description est vide
+            setError(true);
         }
     };
 
@@ -38,13 +38,22 @@ const AddTask = () => {
                     variant="outlined"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    error={error} // Ajout de l'erreur
+                    error={error}
+                    InputProps={{
+                        style: { backgroundColor: theme.palette.background.default },
+                    }}
                 />
                 <Button
                     type="submit"
                     variant="contained"
                     color="primary"
                     startIcon={<AddIcon />}
+                    sx={{
+                        backgroundColor: theme.palette.primary.main,
+                        '&:hover': {
+                            backgroundColor: theme.palette.secondary.main,
+                        },
+                    }}
                 >
                     Ajouter
                 </Button>

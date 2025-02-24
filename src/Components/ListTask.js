@@ -23,7 +23,10 @@ const ListTask = () => {
         dispatch(filterTasks(status));
     };
 
-    const transitions = useTransition(tasks, (task) => task.id, {
+    const validTasks = tasks.filter(task => task && task.id);
+
+    const transitions = useTransition(validTasks, {
+        keys: task => task.id,
         from: { opacity: 0, transform: 'translateY(-20px)' },
         enter: { opacity: 1, transform: 'translateY(0px)' },
         leave: { opacity: 0, transform: 'translateY(-20px)' },
@@ -41,9 +44,9 @@ const ListTask = () => {
                         onClick={() => handleFilter('ALL')}
                         sx={{
                             marginRight: theme.spacing(1),
-                            backgroundColor: theme.palette.custom.darkBlue, // Utilisation de la couleur darkBlue
+                            backgroundColor: theme.palette.custom.darkBlue,
                             '&:hover': {
-                                backgroundColor: theme.palette.custom.darkerBlue, // Couleur plus foncée au survol
+                                backgroundColor: theme.palette.custom.darkerBlue,
                             },
                         }}
                     >
@@ -54,9 +57,9 @@ const ListTask = () => {
                         onClick={() => handleFilter('DONE')}
                         sx={{
                             marginRight: theme.spacing(1),
-                            backgroundColor: theme.palette.secondary.main, // Utilisation de la couleur secondaire
+                            backgroundColor: theme.palette.secondary.main,
                             '&:hover': {
-                                backgroundColor: theme.palette.primary.main, // Couleur primaire au survol
+                                backgroundColor: theme.palette.primary.main,
                             },
                         }}
                     >
@@ -66,9 +69,9 @@ const ListTask = () => {
                         variant="contained"
                         onClick={() => handleFilter('UNDONE')}
                         sx={{
-                            backgroundColor: theme.palette.primary.main, // Utilisation de la couleur primaire
+                            backgroundColor: theme.palette.primary.main,
                             '&:hover': {
-                                backgroundColor: theme.palette.secondary.main, // Couleur secondaire au survol
+                                backgroundColor: theme.palette.secondary.main,
                             },
                         }}
                     >
@@ -76,9 +79,8 @@ const ListTask = () => {
                     </Button>
                 </Box>
                 <Grid container spacing={2}>
-                    {transitions &&  transitions.map(({ item, key, props }) => (
-                       
-                        <animated.div key={key} style={props}>
+                    {transitions((style, item) => (
+                        <animated.div key={item.id} style={style}>
                             <Grid item xs={12}>
                                 <Task task={item} />
                             </Grid>
