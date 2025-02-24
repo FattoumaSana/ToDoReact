@@ -4,17 +4,23 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#1976d2',
+            main: '#64b5f6', // Bleu clair
         },
         secondary: {
-            main: '#dc004e',
+            main: '#81c784', // Vert clair
+        },
+        error: {
+            main: '#e57373', // Rouge clair
+        },
+        warning: {
+            main: '#ffb74d', // Orange clair
         },
         background: {
-            default: '#f4f6f8',
+            default: '#f5f5f5', // Gris clair
         },
         custom: {
-            darkBlue: '#456EBF', // Ajout de darkBlue
-            darkerBlue: '#435373', // Ajout de darkerBlue
+            darkBlue: '#42a5f5',
+            darkerBlue: '#1e88e5',
         },
     },
     typography: {
