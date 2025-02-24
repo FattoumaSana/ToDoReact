@@ -8,7 +8,7 @@ const CompletionMessage = ({ isVisible, message }) => {
 
     return (
         <Box sx={{ bgcolor: 'rgba(0, 255, 0, 0.1)', p: 1, borderRadius: '4px', mt: 2 }}>
-    <Typography variant="caption">Bien joué ! Mission accomplie avec succès. Continue sur cette lancée ! 🚀😎</Typography>
+    <Typography variant="caption">Excellent travail ! Objectif atteint, continue comme ça ! 🔥😎</Typography>
 </Box>
     );
 };

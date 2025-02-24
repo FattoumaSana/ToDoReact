@@ -5,7 +5,7 @@ import { Box, Checkbox, TextField, Typography, Button } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import theme from '../theme/theme';
-import CompletionMessage from './CompletionMessage'; 
+import CompletionMessage from './CompletionMessage';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Task = ({ task }) => {
@@ -14,6 +14,7 @@ const Task = ({ task }) => {
     const [editedDescription, setEditedDescription] = useState(task.description);
     const inputRef = useRef(null);
     const [showMessage, setShowMessage] = useState(false);
+    const [completedTasksCount, setCompletedTasksCount] = useState(0);
 
     useEffect(() => {
         if (isEditing) {
@@ -24,8 +25,9 @@ const Task = ({ task }) => {
     const handleToggle = () => {
         dispatch(toggleTask(task.id));
         if (!task.isDone) {
+            setCompletedTasksCount(completedTasksCount + 1);
             setShowMessage(true);
-            setTimeout(() => setShowMessage(false), 3000); // Masquer après 3 secondes
+            setTimeout(() => setShowMessage(false), 3000);
         }
     };
 
@@ -38,12 +40,25 @@ const Task = ({ task }) => {
         }
     };
 
+    const getCompletionMessage = () => {
+        switch (completedTasksCount) {
+            case 1:
+                return "Excellent travail ! Objectif atteint, continue comme ça ! 🔥😎";
+            case 2:
+                return "Encore un succès à ton actif ! Continue à briller ! ✨";
+            case 3:
+                return "Superbe performance ! En route vers de nouveaux sommets ! ⛰️";
+            default:
+                return "Top niveau ! Tu assures, ne lâche rien !";
+        }
+    };
+
     return (
         <Box
             sx={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between', // Ajout de cette ligne
+                justifyContent: 'space-between',
                 gap: 2,
                 marginBottom: 2,
                 backgroundColor: theme.palette.background.default,
@@ -52,7 +67,7 @@ const Task = ({ task }) => {
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
             }}
         >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Checkbox
                     checked={task.isDone}
                     onChange={handleToggle}
@@ -64,6 +79,7 @@ const Task = ({ task }) => {
                         },
                     }}
                 />
+                {task.isDone && <CheckCircleIcon color="success" />}
                 {isEditing ? (
                     <TextField
                         fullWidth
@@ -87,11 +103,12 @@ const Task = ({ task }) => {
                     />
                 ) : (
                     <div style={{ flexGrow: 1 }}>
-                        <Typography variant="body2"
+                        <Typography
+                            variant="body2"
                             sx={{
                                 textDecoration: task.isDone ? 'line-through' : 'none',
                                 color: task.isDone ? theme.palette.custom.darkBlue : 'inherit',
-                                wordBreak: 'break-word', 
+                                wordBreak: 'break-word',
                                 maxWidth: '100%',
                             }}
                         >
@@ -100,25 +117,23 @@ const Task = ({ task }) => {
                     </div>
                 )}
             </Box>
-            <Button
-                variant="contained"
-                color="primary"
-                startIcon={isEditing ? <SaveIcon /> : <EditIcon />}
-                onClick={handleEdit}
-                sx={{
-                    backgroundColor: isEditing ? theme.palette.secondary.main : theme.palette.primary.main,
-                    '&:hover': {
-                        backgroundColor: isEditing ? theme.palette.primary.main : theme.palette.secondary.main,
-                    },
-                }}
-            >
-                {isEditing ? 'Save' : 'Edit'}
-            </Button>
-            <CompletionMessage
-                isVisible={showMessage}
-                message="Bravo ! Tâche accomplie avec succès !"
-            />
-             {task.isDone && <CheckCircleIcon color="success" />}
+            {!task.isDone && (
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={isEditing ? <SaveIcon /> : <EditIcon />}
+                    onClick={handleEdit}
+                    sx={{
+                        backgroundColor: isEditing ? theme.palette.secondary.main : theme.palette.primary.main,
+                        '&:hover': {
+                            backgroundColor: isEditing ? theme.palette.primary.main : theme.palette.secondary.main,
+                        },
+                    }}
+                >
+                    {isEditing ? 'Save' : 'Edit'}
+                </Button>
+            )}
+            <CompletionMessage isVisible={showMessage} message={getCompletionMessage()} />
         </Box>
     );
 };
