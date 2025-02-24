@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Task from './Task';
-import { filterTasks } from '../Redux/actions';
-import { Button, Container, Typography, Box, Grid } from '@mui/material';
+import { filterTasks, clearTasks, clearCompletedTasks } from '../Redux/actions';
+import { Button, Container, Typography, Box } from '@mui/material';
 import theme from '../theme/theme';
 import { useTransition, animated } from 'react-spring';
 
@@ -21,6 +21,14 @@ const ListTask = () => {
 
     const handleFilter = (status) => {
         dispatch(filterTasks(status));
+    };
+
+    const handleClearTasks = () => {
+        dispatch(clearTasks());
+    };
+
+    const handleClearCompletedTasks = () => {
+        dispatch(clearCompletedTasks());
     };
 
     const validTasks = tasks.filter(task => task && task.id);
@@ -44,9 +52,9 @@ const ListTask = () => {
                         onClick={() => handleFilter('ALL')}
                         sx={{
                             marginRight: theme.spacing(1),
-                            backgroundColor: theme.palette.custom.darkBlue,
+                            backgroundColor: theme.palette.custom?.darkBlue || '#456EBF', // Gestion de l'erreur
                             '&:hover': {
-                                backgroundColor: theme.palette.custom.darkerBlue,
+                                backgroundColor: theme.palette.custom?.darkerBlue || '#435373', // Gestion de l'erreur
                             },
                         }}
                     >
@@ -77,16 +85,38 @@ const ListTask = () => {
                     >
                         En cours
                     </Button>
+                    <Button
+                        variant="contained"
+                        onClick={handleClearTasks}
+                        sx={{
+                            backgroundColor: theme.palette.error.main,
+                            '&:hover': {
+                                backgroundColor: theme.palette.error.dark,
+                            },
+                        }}
+                    >
+                        Effacer tout
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={handleClearCompletedTasks}
+                        sx={{
+                            backgroundColor: theme.palette.warning.main,
+                            '&:hover': {
+                                backgroundColor: theme.palette.warning.dark,
+                            },
+                        }}
+                    >
+                        Effacer terminées
+                    </Button>
                 </Box>
-                <Grid container spacing={2}>
+                <Box>
                     {transitions((style, item) => (
                         <animated.div key={item.id} style={style}>
-                            <Grid item xs={12}>
-                                <Task task={item} />
-                            </Grid>
+                            <Task task={item} />
                         </animated.div>
                     ))}
-                </Grid>
+                </Box>
             </Container>
         );
     } catch (error) {

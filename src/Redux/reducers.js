@@ -25,6 +25,10 @@ const taskReducer = (state = initialState, action) => {
             };
         case 'FILTER_TASKS':
             return { ...state, filter: action.payload };
+        case 'CLEAR_TASKS':
+                return { ...state, tasks: [] };
+        case 'CLEAR_COMPLETED_TASKS':
+                return { ...state, tasks: state.tasks.filter((task) => !task.isDone) };
         default:
             return state;
     }

@@ -21,3 +21,11 @@ export const filterTasks = (status) => ({
     type: 'FILTER_TASKS',
     payload: status,
 });
+
+export const clearCompletedTasks = () => ({
+    type: 'CLEAR_COMPLETED_TASKS',
+});
+
+export const clearTasks = () => ({
+    type: 'CLEAR_TASKS',
+});
