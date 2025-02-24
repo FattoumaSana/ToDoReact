@@ -2,6 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Task from './Task';
 import { filterTasks } from '../Redux/actions';
+import { Button, Container, Typography, Box, Grid } from '@mui/material';
+import theme from '../theme/theme';
+import { useTransition, animated } from 'react-spring';
 
 const ListTask = () => {
     const tasks = useSelector((state) => {
@@ -20,18 +23,74 @@ const ListTask = () => {
         dispatch(filterTasks(status));
     };
 
-    return (
-        <div>
-            <div>
-                <button onClick={() => handleFilter('ALL')}>All</button>
-                <button onClick={() => handleFilter('DONE')}>Done</button>
-                <button onClick={() => handleFilter('UNDONE')}>Undone</button>
-            </div>
-            {tasks.map((task) => (
-                <Task key={task.id} task={task} />
-            ))}
-        </div>
-    );
+    const transitions = useTransition(tasks, (task) => task.id, {
+        from: { opacity: 0, transform: 'translateY(-20px)' },
+        enter: { opacity: 1, transform: 'translateY(0px)' },
+        leave: { opacity: 0, transform: 'translateY(-20px)' },
+    });
+
+    try {
+        return (
+            <Container maxWidth="md" style={{ marginTop: theme.spacing(4) }}>
+                <Typography variant="h4" gutterBottom>
+                    Liste des Tâches
+                </Typography>
+                <Box mb={2}>
+                    <Button
+                        variant="contained"
+                        onClick={() => handleFilter('ALL')}
+                        sx={{
+                            marginRight: theme.spacing(1),
+                            backgroundColor: theme.palette.custom.darkBlue, // Utilisation de la couleur darkBlue
+                            '&:hover': {
+                                backgroundColor: theme.palette.custom.darkerBlue, // Couleur plus foncée au survol
+                            },
+                        }}
+                    >
+                        Toutes
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => handleFilter('DONE')}
+                        sx={{
+                            marginRight: theme.spacing(1),
+                            backgroundColor: theme.palette.secondary.main, // Utilisation de la couleur secondaire
+                            '&:hover': {
+                                backgroundColor: theme.palette.primary.main, // Couleur primaire au survol
+                            },
+                        }}
+                    >
+                        Terminées
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => handleFilter('UNDONE')}
+                        sx={{
+                            backgroundColor: theme.palette.primary.main, // Utilisation de la couleur primaire
+                            '&:hover': {
+                                backgroundColor: theme.palette.secondary.main, // Couleur secondaire au survol
+                            },
+                        }}
+                    >
+                        En cours
+                    </Button>
+                </Box>
+                <Grid container spacing={2}>
+                    {transitions &&  transitions.map(({ item, key, props }) => (
+                       
+                        <animated.div key={key} style={props}>
+                            <Grid item xs={12}>
+                                <Task task={item} />
+                            </Grid>
+                        </animated.div>
+                    ))}
+                </Grid>
+            </Container>
+        );
+    } catch (error) {
+        console.error("Erreur dans ListTask :", error);
+        return <p>Une erreur s'est produite dans ListTask.</p>;
+    }
 };
 
 export default ListTask;
