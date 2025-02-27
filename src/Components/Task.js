@@ -14,7 +14,6 @@ const Task = ({ task }) => {
     const [editedDescription, setEditedDescription] = useState(task.description);
     const inputRef = useRef(null);
     const [showMessage, setShowMessage] = useState(false);
-    const [completedTasksCount, setCompletedTasksCount] = useState(0);
 
     useEffect(() => {
         if (isEditing) {
@@ -25,9 +24,8 @@ const Task = ({ task }) => {
     const handleToggle = () => {
         dispatch(toggleTask(task.id));
         if (!task.isDone) {
-            setCompletedTasksCount(completedTasksCount + 1);
             setShowMessage(true);
-            setTimeout(() => setShowMessage(false), 3000);
+            setTimeout(() => setShowMessage(false), 5000);
         }
     };
 
@@ -37,19 +35,6 @@ const Task = ({ task }) => {
             setIsEditing(false);
         } else {
             setIsEditing(true);
-        }
-    };
-
-    const getCompletionMessage = () => {
-        switch (completedTasksCount) {
-            case 1:
-                return "Excellent travail ! Objectif atteint, continue comme ça ! 🔥😎";
-            case 2:
-                return "Encore un succès à ton actif ! Continue à briller ! ✨";
-            case 3:
-                return "Superbe performance ! En route vers de nouveaux sommets ! ⛰️";
-            default:
-                return "Top niveau ! Tu assures, ne lâche rien !";
         }
     };
 
@@ -133,7 +118,7 @@ const Task = ({ task }) => {
                     {isEditing ? 'Save' : 'Edit'}
                 </Button>
             )}
-            <CompletionMessage isVisible={showMessage} message={getCompletionMessage()} />
+            <CompletionMessage isVisible={showMessage} message="Bravo ! Tâche accomplie avec succès !" />
         </Box>
     );
 };
