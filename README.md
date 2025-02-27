@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Fattouma Sana ToDo React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ce projet est une application de liste de tâches simple et intuitive, construite avec React, Redux pour la gestion d'état, et Material UI pour une interface utilisateur élégante. Elle permet aux utilisateurs de gérer facilement leurs tâches, améliorant ainsi la productivité et l'organisation.
 
-## Available Scripts
+## ✨ Fonctionnalités
 
-In the project directory, you can run:
+- **Ajouter des tâches** : Ajoutez facilement de nouvelles tâches avec une description.
+- **Lister les tâches** : Visualisez toutes les tâches, avec des options de filtrage.
+- **Marquer comme terminée** : Basculez le statut d'achèvement des tâches.
+- **Modifier les tâches** : Modifiez la description des tâches existantes.
+- **Filtrer les tâches** : Filtrez les tâches par statut (Toutes, Terminées, En cours).
+- **Effacer les tâches terminées** : Supprimez toutes les tâches marquées comme terminées.
+- **Effacer toutes les tâches** : Supprimez toutes les tâches de la liste.
+- **Persistance** : Les tâches sont persistées dans le stockage local, garantissant que les données sont enregistrées d'une session à l'autre.
+- **Interface conviviale** : Utilise les composants Material UI pour une conception propre et réactive.
+- **Liste de tâches animée** : Utilise `react-spring` pour des animations fluides lorsque des tâches sont ajoutées ou supprimées.
+- **Thème personnalisé** : Stylisé avec un thème personnalisé utilisant les capacités de thématisation de Material UI.
 
-### `npm start`
+## 🛠 Technologies utilisées
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React** : Une bibliothèque JavaScript pour la construction d'interfaces utilisateur.
+- **Redux** : Un conteneur d'état prévisible pour les applications JavaScript, utilisé pour gérer l'état de l'application.
+- **Redux Persist** : Pour persister et réhydrater un store Redux.
+- **Material UI (MUI)** : Un framework UI React pour un développement web plus rapide et plus facile.
+- **Create React App** : Un environnement confortable pour apprendre React, et la meilleure façon de commencer à construire une nouvelle application monopage en React.
+- **react-spring** : Pour l'animation de la liste de tâches.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Démarrage rapide
 
-### `npm test`
+Suivez ces étapes pour exécuter le projet sur votre machine locale.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prérequis
 
-### `npm run build`
+Assurez-vous que Node.js et npm (ou yarn) sont installés sur votre machine.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  **Cloner le dépôt :**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    ```bash
+    git clone [https://github.com/FattoumaSana/ToDoReact/]
+    cd fattoumasana-todoreact
+    ```
 
-### `npm run eject`
+2.  **Installer les dépendances :**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```bash
+    npm install
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Exécuter l'application
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1.  **Démarrer le serveur de développement :**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    ```bash
+    npm start
+    ```
 
-## Learn More
+    Cette commande démarrera l'application en mode développement et l'ouvrira dans votre navigateur à l'adresse [http://localhost:3000](http://localhost:3000). La page se rechargera automatiquement lors des modifications du code.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Lancer les tests
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Pour exécuter la suite de tests, utilisez la commande suivante :
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm test
+## 📂 Structure du projet
+fattoumasana-todoreact/
+├── README.md          // Documentation du projet
+├── package.json       // Dépendances et scripts du projet
+├── public/            // Assets publics
+│   ├── index.html     // Fichier HTML principal
+│   ├── manifest.json  // Fichier manifeste PWA
+│   └── robots.txt     // Configuration des robots
+└── src/               // Code source
+    ├── App.css        // Styles globaux pour le composant App
+    ├── App.js         // Composant principal de l'application
+    ├── App.test.js    // Tests pour le composant App
+    ├── index.css      // Styles globaux
+    ├── index.js       // Point d'entrée de l'application
+    ├── reportWebVitals.js // Rapport sur les performances web
+    ├── setupTests.js  // Configuration pour les tests
+    ├── Components/    // Composants React
+    │   ├── AddTask.js         // Composant pour ajouter de nouvelles tâches
+    │   ├── CompletionMessage.js // Composant pour les messages d'achèvement de tâches
+    │   ├── ListTask.js        // Composant pour lister et filtrer les tâches
+    │   └── Task.js            // Composant pour afficher les tâches individuelles
+    ├── Redux/           // Store, reducers et actions Redux
+    │   ├── actions.js     // Créateurs d'actions Redux
+    │   ├── reducers.js    // Reducers Redux
+    │   └── store.js       // Configuration du store Redux
+    └── theme/           // Thème personnalisé Material UI
+        └── theme.js       // Définition du thème
+```
+Merci !
